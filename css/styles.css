@@ -389,7 +389,7 @@ a:hover {
   }
 }
 
-/* FIXED SCROLL INDICATOR */
+/* SCROLL INDICATOR */
 
 .scroll-cue {
   position: absolute;
@@ -648,6 +648,11 @@ a:hover {
   color: var(--accent);
   font-weight: 700;
   font-size: 0.88rem;
+  transition: 180ms ease;
+}
+
+.project-link:hover {
+  color: #d8ffeb;
 }
 
 .project-actions .project-link {
@@ -663,6 +668,17 @@ a:hover {
 }
 
 .horizontal-project .project-link {
+  margin-top: 0;
+}
+
+/* PORTFOLIO PROJECT */
+
+.portfolio-actions {
+  justify-content: flex-start;
+  margin-top: 0;
+}
+
+.portfolio-actions .project-link {
   margin-top: 0;
 }
 
@@ -868,6 +884,15 @@ body.loaded .reveal-item:nth-child(5) {
   transition-delay: 340ms;
 }
 
+/* DESKTOP */
+
+@media (min-width: 992px) {
+  .portfolio-actions {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
 /* TABLET */
 
 @media (max-width: 991.98px) {
@@ -910,6 +935,10 @@ body.loaded .reveal-item:nth-child(5) {
   }
 
   .horizontal-project .project-link {
+    margin-top: 4px;
+  }
+
+  .portfolio-actions {
     margin-top: 4px;
   }
 }
