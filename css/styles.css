@@ -251,6 +251,7 @@ a:hover {
   flex-wrap: wrap;
   gap: 28px;
   margin-top: 58px;
+  margin-bottom: 75px;
 }
 
 .hero-meta div {
@@ -388,22 +389,30 @@ a:hover {
   }
 }
 
+/* FIXED SCROLL INDICATOR */
+
 .scroll-cue {
   position: absolute;
-  bottom: 26px;
+  bottom: 18px;
   left: 50%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
+
+  width: max-content;
   color: var(--muted);
   font-size: 0.7rem;
   letter-spacing: 0.16em;
+  text-align: center;
   text-transform: uppercase;
+
   transform: translateX(-50%);
 }
 
 .scroll-cue i {
+  display: block;
   animation: bounce 1.8s ease-in-out infinite;
 }
 
@@ -919,6 +928,7 @@ body.loaded .reveal-item:nth-child(5) {
   .hero-meta {
     gap: 17px;
     margin-top: 42px;
+    margin-bottom: 18px;
   }
 
   .hero-meta div {
