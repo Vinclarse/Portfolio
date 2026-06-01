@@ -5,25 +5,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const toast =
     toastElement && window.bootstrap
-      ? new bootstrap.Toast(toastElement, { delay: 2400 })
+      ? new bootstrap.Toast(toastElement, {
+          delay: 2400
+        })
       : null;
 
   document.body.classList.add('loaded');
 
-  // Shrinks the navbar after the user scrolls.
+  // Shrinks the navbar after scrolling.
   function updateHeader() {
-    if (!header) return;
+    if (!header) {
+      return;
+    }
 
-    header.classList.toggle('scrolled', window.scrollY > 18);
+    header.classList.toggle(
+      'scrolled',
+      window.scrollY > 18
+    );
   }
 
   updateHeader();
 
-  window.addEventListener('scroll', updateHeader, {
-    passive: true
-  });
+  window.addEventListener(
+    'scroll',
+    updateHeader,
+    {
+      passive: true
+    }
+  );
 
-  // Reveals sections when they enter the screen.
+  // Reveals each section when it enters the screen.
   const observer = new IntersectionObserver(
     function (entries) {
       entries.forEach(function (entry) {
@@ -38,30 +49,38 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   );
 
-  document.querySelectorAll('.fade-section').forEach(function (section) {
-    observer.observe(section);
-  });
-
-  // Closes the mobile navbar after a link is selected.
-  document.querySelectorAll('#navMenu .nav-link').forEach(function (link) {
-    link.addEventListener('click', function () {
-      if (
-        navMenu &&
-        navMenu.classList.contains('show') &&
-        window.bootstrap
-      ) {
-        bootstrap.Collapse.getOrCreateInstance(navMenu).hide();
-      }
+  document
+    .querySelectorAll('.fade-section')
+    .forEach(function (section) {
+      observer.observe(section);
     });
-  });
 
-  // Typing animation inside the code window.
-  const typingText = document.getElementById('typingText');
+  // Closes the mobile navigation menu after selecting a link.
+  document
+    .querySelectorAll('#navMenu .nav-link')
+    .forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (
+          navMenu &&
+          navMenu.classList.contains('show') &&
+          window.bootstrap
+        ) {
+          bootstrap.Collapse
+            .getOrCreateInstance(navMenu)
+            .hide();
+        }
+      });
+    });
+
+  // Typing animation inside the developer code window.
+  const typingText =
+    document.getElementById('typingText');
 
   const messages = [
     'npm run build',
     'building useful web systems',
-    'connecting ideas to code'
+    'connecting ideas to code',
+    'deploying portfolio project'
   ];
 
   let messageIndex = 0;
@@ -69,83 +88,131 @@ document.addEventListener('DOMContentLoaded', function () {
   let deleting = false;
 
   function typeLoop() {
-    if (!typingText) return;
+    if (!typingText) {
+      return;
+    }
 
-    const current = messages[messageIndex];
+    const currentMessage =
+      messages[messageIndex];
 
     if (!deleting) {
-      typingText.textContent = current.slice(0, charIndex + 1);
+      typingText.textContent =
+        currentMessage.slice(
+          0,
+          charIndex + 1
+        );
+
       charIndex += 1;
 
-      if (charIndex === current.length) {
+      if (charIndex === currentMessage.length) {
         deleting = true;
 
-        setTimeout(typeLoop, 1500);
+        setTimeout(
+          typeLoop,
+          1500
+        );
+
         return;
       }
     } else {
-      typingText.textContent = current.slice(
-        0,
-        Math.max(0, charIndex - 1)
-      );
+      typingText.textContent =
+        currentMessage.slice(
+          0,
+          Math.max(0, charIndex - 1)
+        );
 
       charIndex -= 1;
 
       if (charIndex === 0) {
         deleting = false;
-        messageIndex = (messageIndex + 1) % messages.length;
+
+        messageIndex =
+          (messageIndex + 1) %
+          messages.length;
       }
     }
 
-    setTimeout(typeLoop, deleting ? 38 : 72);
+    setTimeout(
+      typeLoop,
+      deleting ? 38 : 72
+    );
   }
 
-  setTimeout(typeLoop, 850);
+  setTimeout(
+    typeLoop,
+    850
+  );
 
-  // Opens the visitor's email application after submitting the form.
-  const contactForm = document.getElementById('contactForm');
+  // Opens the visitor's email application after form submission.
+  const contactForm =
+    document.getElementById('contactForm');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', function (event) {
-      event.preventDefault();
+    contactForm.addEventListener(
+      'submit',
+      function (event) {
+        event.preventDefault();
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
+        const name =
+          document
+            .getElementById('name')
+            .value
+            .trim();
 
-      const subject = encodeURIComponent(
-        'Portfolio inquiry from ' + name
-      );
+        const email =
+          document
+            .getElementById('email')
+            .value
+            .trim();
 
-      const body = encodeURIComponent(
-        'Name: ' +
-          name +
-          '\nEmail: ' +
-          email +
-          '\n\nMessage:\n' +
-          message
-      );
+        const message =
+          document
+            .getElementById('message')
+            .value
+            .trim();
 
-      const mailtoLink =
-        'mailto:gaan0906@gmail.com?subject=' +
-        subject +
-        '&body=' +
-        body;
+        const subject =
+          encodeURIComponent(
+            'Portfolio inquiry from ' + name
+          );
 
-      if (toast) {
-        toast.show();
+        const body =
+          encodeURIComponent(
+            'Name: ' +
+              name +
+              '\nEmail: ' +
+              email +
+              '\n\nMessage:\n' +
+              message
+          );
+
+        const mailtoLink =
+          'mailto:gaan0906@gmail.com?subject=' +
+          subject +
+          '&body=' +
+          body;
+
+        if (toast) {
+          toast.show();
+        }
+
+        setTimeout(
+          function () {
+            window.location.href =
+              mailtoLink;
+          },
+          350
+        );
       }
-
-      setTimeout(function () {
-        window.location.href = mailtoLink;
-      }, 350);
-    });
+    );
   }
 
-  // Automatically displays the current year in the footer.
-  const currentYear = document.getElementById('currentYear');
+  // Updates the footer year automatically.
+  const currentYear =
+    document.getElementById('currentYear');
 
   if (currentYear) {
-    currentYear.textContent = new Date().getFullYear();
+    currentYear.textContent =
+      new Date().getFullYear();
   }
 });
